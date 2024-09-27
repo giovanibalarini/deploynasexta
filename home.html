@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensagem do Dia</title>
+    <!-- Importando uma fonte de console do Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: white;
+            font-family: 'Fira Code', monospace;
+            text-align: center;
+            font-size: 1.5em;
+            transition: background-color 0.5s ease;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        }
+        .titulo {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .subtitulo {
+            font-size: 1.2em;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const mensagens = {
+                sexta: [
+                    {titulo: "🚫 Sexta-feira!", subtitulo: "Não é uma boa ideia fazer deploy na sexta."},
+                    {titulo: "⚠️ Deploy na Sexta?", subtitulo: "Melhor já pedir pizza e preparar o rollback."},
+                    {titulo: "🛑 Atenção!", subtitulo: "Deploy na sexta é como atravessar a rua sem olhar. Cuidado!"},
+                    {titulo: "😌 Relaxa!", subtitulo: "Hoje é sexta, respire fundo e espere a segunda."},
+                    {titulo: "🔒 Seguro Ficar!", subtitulo: "Só faça deploy se tiver um plano de fuga bem elaborado."},
+                    {titulo: "🪂 Deploy na Sexta?", subtitulo: "Como saltar de paraquedas sem verificar se está aberto."},
+                    {titulo: "🎉 Sexta-feira!", subtitulo: "Dia de festa, não de deploy."},
+                    {titulo: "🐝 Deploy Perigoso!", subtitulo: "Sexta é dia internacional de não causar problemas."},
+                    {titulo: "🌀 Cuidado!", subtitulo: "Deploy na sexta? O caos adora visitas."},
+                    {titulo: "🎲 Aventura!", subtitulo: "Deploy na sexta é como testar a sorte com um gato preto."},
+                    {titulo: "☕ Prefira Café!", subtitulo: "Deploy na sexta-feira? Melhor um café e descanso."},
+                    {titulo: "🎊 Sextou!", subtitulo: "Deploy não combina com sexta-feira."},
+                    {titulo: "🐝 Vespeiro!", subtitulo: "Deploy na sexta é como mexer em um vespeiro... dor de cabeça garantida!"},
+                    {titulo: "🚷 Evite!", subtitulo: "Não faça deploy na sexta. Deixe para outro dia."},
+                    {titulo: "🔫 Roleta Russa!", subtitulo: "Deploy na sexta é como jogar roleta russa com o servidor."},
+                    {titulo: "🚫 Sempre!", subtitulo: "Sextou! E deploy é uma má ideia... sempre."},
+                    {titulo: "🤔 Pense Bem!", subtitulo: "Deploy na sexta-feira: pense duas vezes... ou cinco."},
+                    {titulo: "💡 Dica!", subtitulo: "Sexta-feira e deploy não combinam."},
+                    {titulo: "❌ Escolha!", subtitulo: "Sexta? Deploy? Escolha um. Não os dois."},
+                    {titulo: "🛑 Pare!", subtitulo: "Deploy na sexta? Melhor não arriscar."}
+                ],
+                segunda_a_quinta: [
+                    {titulo: "✅ Tudo Certo!", subtitulo: "Hoje está tranquilo, pode fazer deploy!"},
+                    {titulo: "🚀 Deploy Liberado!", subtitulo: "Mas sempre cheque duas vezes!"},
+                    {titulo: "🌟 Vida Bela!", subtitulo: "O deploy está ok hoje!"},
+                    {titulo: "💪 Confiança!", subtitulo: "Hoje não é sexta, pode ir com fé no deploy."},
+                    {titulo: "🛡️ Segurança!", subtitulo: "Sem preocupações, hoje é seguro fazer deploy!"},
+                    {titulo: "🖥️ Ambiente Estável!", subtitulo: "Faça o deploy (com cuidado!)."},
+                    {titulo: "📋 Checklist!", subtitulo: "Deploy hoje? Claro, siga o checklist!"},
+                    {titulo: "🌞 Bom Dia!", subtitulo: "Hoje é um bom dia para deploy, nada de sexta-feira."},
+                    {titulo: "🔥 Coragem!", subtitulo: "Vamos lá, hoje é um dia perfeito para deploy."},
+                    {titulo: "🙏 Deuses da TI!", subtitulo: "Deploy permitido! Não esqueça de rezar."},
+                    {titulo: "👍 Tudo Certo!", subtitulo: "Pode mandar o deploy!"},
+                    {titulo: "🔄 Aprovação!", subtitulo: "Não é sexta, não é fim de semana. Deploy aprovado!"},
+                    {titulo: "🌈 Ótimo Dia!", subtitulo: "Hoje o deploy é uma boa ideia."},
+                    {titulo: "🧪 Testes!", subtitulo: "Dia perfeito para um deploy... com testes."},
+                    {titulo: "🎯 Objetivo!", subtitulo: "Pode fazer deploy, só não aperte 'F' se algo der errado."},
+                    {titulo: "💥 Vai Fundo!", subtitulo: "Deploy hoje? Vai fundo, não é sexta-feira!"},
+                    {titulo: "🔐 Autorizado!", subtitulo: "O ambiente agradece, deploy autorizado!"},
+                    {titulo: "☕ Café!", subtitulo: "Deploy seguro, tome um café antes."},
+                    {titulo: "✅ Verde!", subtitulo: "Dia de deploy! Tudo verde por aqui."},
+                    {titulo: "👍 Dia Certo!", subtitulo: "Se for fazer deploy, hoje é o dia certo. Sem medo!"}
+                ],
+                sabado_domingo: [
+                    {titulo: "😴 Descanso!", subtitulo: "Hoje é fim de semana, vai descansar!"},
+                    {titulo: "🎉 Fim de Semana!", subtitulo: "Deploy? Vai curtir a vida, é melhor!"},
+                    {titulo: "🛌 Relaxa!", subtitulo: "Sábado e domingo são para relaxar, esqueça o deploy."},
+                    {titulo: "🚫 Nada de Deploy!", subtitulo: "Fim de semana foi feito para descansar."},
+                    {titulo: "🌴 Aproveite!", subtitulo: "Hoje é dia de descanso, não de deploy."},
+                    {titulo: "🍹 Relaxamento!", subtitulo: "Sábado e domingo são para relaxar, não para quebrar a produção."},
+                    {titulo: "🏖️ Curta!", subtitulo: "Vai descansar! Deploy é só durante a semana."},
+                    {titulo: "🛑 Deploy Proibido!", subtitulo: "Fim de semana: descanso obrigatório."},
+                    {titulo: "💤 Recarregue!", subtitulo: "Descanse e recarregue as energias, deploy não é hoje."},
+                    {titulo: "🌅 Viva!", subtitulo: "Fim de semana é para viver, não para lançar código."},
+                    {titulo: "🚷 Deploy Não!", subtitulo: "Vai descansar, deploy hoje não é permitido."},
+                    {titulo: "🎈 Aproveite!", subtitulo: "Esqueça deploy, aproveite o fim de semana!"},
+                    {titulo: "🧘 Relaxamento!", subtitulo: "Hoje é dia de relaxar, não de arriscar deploy."},
+                    {titulo: "🎮 Diversão!", subtitulo: "Nada de deploy no fim de semana, vá se divertir!"},
+                    {titulo: "🏡 Tempo para Você!", subtitulo: "Sábado e domingo foram feitos para você, não para deploy."},
+                    {titulo: "🛌 Descanse!", subtitulo: "Vai descansar, o deploy pode esperar até segunda."},
+                    {titulo: "🌙 Noite Tranquila!", subtitulo: "Fim de semana é para descanso, não para deploy."},
+                    {titulo: "🚫 Não Hoje!", subtitulo: "Deploy no fim de semana? Nem pensar, vai relaxar!"},
+                    {titulo: "🌟 Aproveite!", subtitulo: "Hoje é fim de semana, só descanso, nada de deploy."},
+                    {titulo: "🕶️ Relax!", subtitulo: "Fim de semana é para relaxar, não para deploy."}
+                ]
+            };
+
+            const diaSemana = new Date().getDay();
+            let mensagem, corFundo;
+
+            if (diaSemana === 5) { // Sexta-feira
+                mensagem = mensagens.sexta[Math.floor(Math.random() * mensagens.sexta.length)];
+                corFundo = "#B22222"; // Vermelho Escuro
+            } else if (diaSemana >= 1 && diaSemana <= 4) { // Segunda a Quinta
+                mensagem = mensagens.segunda_a_quinta[Math.floor(Math.random() * mensagens.segunda_a_quinta.length)];
+                corFundo = "#228B22"; // Verde Floresta
+            } else { // Sábado e Domingo
+                mensagem = mensagens.sabado_domingo[Math.floor(Math.random() * mensagens.sabado_domingo.length)];
+                corFundo = "#8B0000"; // Vermelho Escuro
+            }
+
+            document.body.style.backgroundColor = corFundo;
+            document.body.innerHTML = `
+                <div class="container">
+                    <div class="titulo">${mensagem.titulo}</div>
+                    <div class="subtitulo">${mensagem.subtitulo}</div>
+                </div>
+            `;
+        });
+    </script>
+</head>
+<body>
+</body>
+</html>
